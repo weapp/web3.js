@@ -30,7 +30,7 @@ import {MethodModuleFactory} from 'web3-core-method';
  *
  * @returns {Function}
  */
-export const Module = () => { // Test extends Abstract
+export const Module = () => {
     /**
      * @param {AbstractWeb3Module} module
      *
@@ -40,24 +40,37 @@ export const Module = () => { // Test extends Abstract
         return class extends module {
             /**
              * @param {EthereumProvider|HttpProvider|WebsocketProvider|IpcProvider|String} provider
-             * @param {AbstractMethodFactory} methodFactory
              * @param {Object} options
+             * @param {AbstractMethodFactory} methodFactory
              * @param {Accounts} accounts
              *
              * @constructor
              */
-            constructor(provider, methodFactory, options, accounts = null) {
+            constructor(provider, options, methodFactory = null, accounts = null) {
                 if (!arguments[4]) {
-                    super(provider, new ProvidersModuleFactory(), new MethodModuleFactory(accounts), methodFactory, options);
+                    super(
+                        provider,
+                        new ProvidersModuleFactory(),
+                        new MethodModuleFactory(accounts),
+                        methodFactory,
+                        options
+                    );
                 }
 
-                if(arguments[4]) {
-                    const abstractWeb3ModuleParameters = [provider, new ProvidersModuleFactory(), new MethodModuleFactory(accounts), methodFactory, options];
-                    const additionalParameters = [...arguments].slice(4, (arguments.length -1));
+                if (arguments[4]) {
+                    const abstractWeb3ModuleParameters = [
+                        provider,
+                        new ProvidersModuleFactory(),
+                        new MethodModuleFactory(accounts),
+                        methodFactory,
+                        options
+                    ];
 
-                    super(...abstractWeb3ModuleParameters.concat(additionalParameters))
+                    const additionalParameters = [...arguments].slice(4, (arguments.length - 1));
+
+                    super(...abstractWeb3ModuleParameters.concat(additionalParameters));
                 }
             }
-        }
+        };
     };
 };
