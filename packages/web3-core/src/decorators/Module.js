@@ -46,7 +46,7 @@ export const Module = () => {
              *
              * @constructor
              */
-            constructor(provider, options, methodFactory = null, accounts = null) {
+            constructor(provider, options = {}, methodFactory = null, accounts = null) {
                 if (!arguments[4]) {
                     super(
                         provider,
