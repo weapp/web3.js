@@ -30,7 +30,7 @@ import {MethodModuleFactory} from 'web3-core-method';
  *
  * @returns {Function}
  */
-export const Module = () => {
+export const Module = () => { // Test extends Abstract
     /**
      * @param {AbstractWeb3Module} module
      *
@@ -47,7 +47,16 @@ export const Module = () => {
              * @constructor
              */
             constructor(provider, methodFactory, options, accounts = null) {
-                super(provider, new ProvidersModuleFactory(), new MethodModuleFactory(accounts), methodFactory, options);
+                if (!arguments[4]) {
+                    super(provider, new ProvidersModuleFactory(), new MethodModuleFactory(accounts), methodFactory, options);
+                }
+
+                if(arguments[4]) {
+                    const abstractWeb3ModuleParameters = [provider, new ProvidersModuleFactory(), new MethodModuleFactory(accounts), methodFactory, options];
+                    const additionalParameters = [...arguments].slice(4, (arguments.length -1));
+
+                    super(...abstractWeb3ModuleParameters.concat(additionalParameters))
+                }
             }
         }
     };
