@@ -38,7 +38,15 @@ export const Module = () => {
      */
     return (module) => {
         return class extends module {
-            constructor(provider, options, methodFactory, accounts) {
+            /**
+             * @param {EthereumProvider|HttpProvider|WebsocketProvider|IpcProvider|String} provider
+             * @param {AbstractMethodFactory} methodFactory
+             * @param {Object} options
+             * @param {Accounts} accounts
+             *
+             * @constructor
+             */
+            constructor(provider, methodFactory, options, accounts = null) {
                 super(provider, new ProvidersModuleFactory(), new MethodModuleFactory(accounts), methodFactory, options);
             }
         }

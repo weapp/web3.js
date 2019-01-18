@@ -21,3 +21,4 @@
  */
 
 export AbstractWeb3Module from './AbstractWeb3Module';
+export Module from './decorators/Module';
